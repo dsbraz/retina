@@ -1,2 +1,1 @@
-Retina
-======
+Efeito retina (apple like) em HTML e JS
