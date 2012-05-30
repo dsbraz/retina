@@ -1,0 +1,38 @@
+img {
+  position: absolute;
+}
+
+#creme {
+  background: url('../img/pote.png') no-repeat center center #FFCC33;
+  position: absolute;
+  border: 6px outset white;
+  height: 75px;
+  width: 75px;
+  left: 2px;
+  top: 40px;
+}
+
+#menu {
+  background-color: white;
+  position: absolute;
+  height: 760px;
+  width: 80px;
+}
+
+#rosto {
+  position: absolute;
+  left: 90px;
+}
+
+#retina {
+  background: url('../img/rosto_sujo.jpg') no-repeat transparent;
+  border: 2px solid white;
+  position: absolute;
+  height: 250px;
+  width: 250px;
+  left: 300px;
+  top: 100px;
+  display: none;
+  -webkit-box-shadow: 0 0 5px #777;
+  -webkit-border-radius: 125px;
+}
