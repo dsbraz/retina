@@ -32,7 +32,7 @@ img {
 }
 
 #lens {
-  background: url('../img/rosto_sujo.jpg') no-repeat gray;
+  background: url('../img/rosto_sujo.jpg') no-repeat transparent;
   border: 2px solid gray;
   position: absolute;
   height: 142px;
