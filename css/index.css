@@ -25,14 +25,19 @@ img {
 }
 
 #retina {
-  background: url('../img/rosto_sujo.jpg') no-repeat transparent;
-  border: 2px solid white;
   position: absolute;
-  height: 250px;
-  width: 250px;
-  left: 300px;
-  top: 100px;
-  display: none;
-  -webkit-box-shadow: 0 0 5px #777;
-  -webkit-border-radius: 125px;
+  left: 400px;
+  top: 200px;
+  display: block;
+}
+
+#lens {
+  background: url('../img/rosto_sujo.jpg') no-repeat gray;
+  border: 2px solid gray;
+  position: absolute;
+  height: 142px;
+  width: 161px;
+  left: 53px;
+  top: 42px;
+  -webkit-border-radius: 110px 98px 122px 96px;
 }

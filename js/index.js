@@ -18,12 +18,10 @@ function touchePosition(event) {
 
 function moveRetina(pos, bgOffset) {
   var retina = document.getElementById('retina');
-  var retinaSize = 210;
-  with (retina.style) {
-    left = (pos.left - retinaSize) + 'px';
-    top = (pos.top - retinaSize) + 'px';
-    backgroundPosition = (bgOffset.left - pos.left + retinaSize) + 'px ' + (bgOffset.top - pos.top + retinaSize) + 'px';
-  }
+  var lens = document.getElementById('lens');
+  retina.style.left = (pos.left - 350) + 'px';
+  retina.style.top = (pos.top - 250) + 'px';
+  lens.style.backgroundPosition = (bgOffset.left - pos.left + 350) + 'px ' + (bgOffset.top - pos.top + 200) + 'px';
 }
 
 function displayRetina(show) {
@@ -46,9 +44,9 @@ function onOffCreme() {
 function cleanRosto(parte) {
   var partes = ['testa', 'face_esquerda', 'nariz', 'face_direita', 'queixo'];
   if (partes.indexOf(parte) > -1) {
-    var retina = document.getElementById('retina'),
+    var lens = document.getElementById('lens'),
         imagem = document.getElementById(parte);
-    retina.style.backgroundImage = 'url("img/rosto_limpo.jpg")';
+    lens.style.backgroundImage = 'url("img/rosto_limpo.jpg")';
     imagem.src = 'img/sem_brilho/' + parte + '.jpg';
     clearCount += 1;
   }
