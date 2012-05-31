@@ -26,9 +26,7 @@ img {
 
 #retina {
   position: absolute;
-  left: 400px;
-  top: 200px;
-  display: block;
+  display: none;
 }
 
 #lens {

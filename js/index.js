@@ -17,11 +17,11 @@ function touchePosition(event) {
 }
 
 function moveRetina(pos, bgOffset) {
-  var retina = document.getElementById('retina');
-  var lens = document.getElementById('lens');
+  var lens = document.getElementById('lens'),
+      retina = document.getElementById('retina');
+  lens.style.backgroundPosition = (bgOffset.left - pos.left + 350) + 'px ' + (bgOffset.top - pos.top + 200) + 'px';
   retina.style.left = (pos.left - 350) + 'px';
   retina.style.top = (pos.top - 250) + 'px';
-  lens.style.backgroundPosition = (bgOffset.left - pos.left + 350) + 'px ' + (bgOffset.top - pos.top + 200) + 'px';
 }
 
 function displayRetina(show) {
