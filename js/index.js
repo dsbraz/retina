@@ -69,7 +69,6 @@ function rostoTouchStart(event) {
 }
 
 function rostoTouchEnd(event) {
-  var retina = document.getElementById('retina');
   displayRetina(false);
 }
 
