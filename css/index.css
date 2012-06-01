@@ -29,8 +29,8 @@ img {
   display: none;
 }
 
-#lens {
-  background: -webkit-canvas(lensbg) no-repeat transparent;
+#lente {
+  background: -webkit-canvas(lentebg) no-repeat transparent;
   border: 2px solid gray;
   position: absolute;
   height: 142px;

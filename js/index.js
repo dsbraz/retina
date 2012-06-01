@@ -1,5 +1,10 @@
 var isCremeOn = false,
-    clearCount = 5;
+    clearCount = {
+      'testa': 5,
+      'face_esquerda': 5,
+      'face_direita': 5,
+      'queixo': 5
+    };
 
 function rostoOffset() {
   var rosto = document.getElementById('rosto');
@@ -17,9 +22,9 @@ function touchePosition(event) {
 }
 
 function moveRetina(pos, bgOffset) {
-  var lens = document.getElementById('lens'),
+  var lente = document.getElementById('lente'),
       retina = document.getElementById('retina');
-  lens.style.backgroundPosition = (bgOffset.left - pos.left + 350) + 'px ' + (bgOffset.top - pos.top + 200) + 'px';
+  lente.style.backgroundPosition = (bgOffset.left - pos.left + 350) + 'px ' + (bgOffset.top - pos.top + 200) + 'px';
   retina.style.left = (pos.left - 350) + 'px';
   retina.style.top = (pos.top - 250) + 'px';
 }
@@ -41,37 +46,42 @@ function onOffCreme() {
   } 
 }
 
-function drawBackground() {
-  var ctx = document.getCSSCanvasContext('2d', 'lensbg', 1024, 768),
+function drawGorduras(ctx, qtde, left, top, lquota, tquota) {
+  ctx.fillStyle = 'red';
+  for (var i = 0; i < qtde; i++) {
+    var x = left + Math.floor(Math.random() * lquota);
+    var y = top + Math.floor(Math.random() * tquota);
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, 360, false);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, 360, false);
+    ctx.fill();
+  }
+}
+
+function drawLenteBackground() {
+  var ctx = document.getCSSCanvasContext('2d', 'lentebg', 1024, 768),
       img = new Image();
   img.src = 'img/rosto_zoom.jpg';
   img.onload = function () {
     ctx.drawImage(img, 0, 0);
-    ctx.fillStyle = 'red';
-    // Desenhando na testa
-    for (var i = 0; i < clearCount; i++) {
-      var rand_x = 350 + Math.floor(Math.random() * 300);
-      var rand_y = 115 + Math.floor(Math.random() * 120);
-      ctx.beginPath();
-      ctx.arc(rand_x,rand_y,6,0,360,false);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(rand_x,rand_y,5,0,360,false);
-      ctx.fill();
-    }
+    drawGorduras(ctx, clearCount['testa'], 360, 115, 280, 120);
+    drawGorduras(ctx, clearCount['face_esquerda'], 280, 340, 100, 140);
+    drawGorduras(ctx, clearCount['face_direita'], 520, 360, 100, 140);
+    drawGorduras(ctx, clearCount['queixo'], 300, 550, 270, 60);
   }
 }
 
-function cleanRosto(parte) {
+function clearRosto(parte) {
   var partes = ['testa', 'face_esquerda', 'face_direita', 'queixo'];
   if (partes.indexOf(parte) > -1) {
-    var lens = document.getElementById('lens'),
-        imagem = document.getElementById(parte);
-    if (clearCount == 1) {
+    if (clearCount[parte] <= 1) {
+      var imagem = document.getElementById(parte);
       imagem.src = 'img/sem_brilho/' + parte + '.jpg';
     }
-    drawBackground();
-    clearCount--;
+    clearCount[parte]--;
+    drawLenteBackground();
   }
 }
 
@@ -83,7 +93,7 @@ function rostoTouchStart(event) {
   rostoTouchMove(event);
   displayRetina(!isCremeOn);
   if (isCremeOn) {
-    cleanRosto(event.target.id);
+    clearRosto(event.target.id);
   }
 }
 
@@ -100,11 +110,10 @@ function rostoTouchMove(event) {
 
 function load() {
   var creme = document.getElementById('creme'),
-      rosto = document.getElementById('rosto'),
-      lens = document.getElementById('lens');
+      rosto = document.getElementById('rosto');
   creme.addEventListener('click', cremeClick, false);
   rosto.addEventListener('touchstart', rostoTouchStart, false);
   rosto.addEventListener('touchend', rostoTouchEnd, false);
   rosto.addEventListener('touchmove', rostoTouchMove, false);
-  drawBackground();
+  drawLenteBackground();
 }
