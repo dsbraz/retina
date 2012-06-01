@@ -1,5 +1,5 @@
 var isCremeOn = false,
-    clearCount = 0;
+    clearCount = 5;
 
 function rostoOffset() {
   var rosto = document.getElementById('rosto');
@@ -41,22 +41,41 @@ function onOffCreme() {
   } 
 }
 
+function drawBackground() {
+  var ctx = document.getCSSCanvasContext('2d', 'lensbg', 1024, 768),
+      img = new Image();
+  img.src = 'img/rosto_zoom.jpg';
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0);
+    ctx.fillStyle = 'red';
+    // Desenhando na testa
+    for (var i = 0; i < clearCount; i++) {
+      var rand_x = 350 + Math.floor(Math.random() * 300);
+      var rand_y = 115 + Math.floor(Math.random() * 120);
+      ctx.beginPath();
+      ctx.arc(rand_x,rand_y,6,0,360,false);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(rand_x,rand_y,5,0,360,false);
+      ctx.fill();
+    }
+  }
+}
+
 function cleanRosto(parte) {
-  var partes = ['testa', 'face_esquerda', 'nariz', 'face_direita', 'queixo'];
+  var partes = ['testa', 'face_esquerda', 'face_direita', 'queixo'];
   if (partes.indexOf(parte) > -1) {
     var lens = document.getElementById('lens'),
         imagem = document.getElementById(parte);
-    lens.style.backgroundImage = 'url("img/rosto_limpo.jpg")';
-    imagem.src = 'img/sem_brilho/' + parte + '.jpg';
-    clearCount += 1;
+    if (clearCount == 1) {
+      imagem.src = 'img/sem_brilho/' + parte + '.jpg';
+    }
+    drawBackground();
+    clearCount--;
   }
 }
 
 function cremeClick(event) {
-  if (isCremeOn && clearCount < 5) {
-    alert('Tsc, tsc.. voce ainda nao limpou o rosto todo, faltam limpar ' + (5 - clearCount) + ' areas');
-    return;
-  }
   onOffCreme();
 }
 
@@ -81,9 +100,11 @@ function rostoTouchMove(event) {
 
 function load() {
   var creme = document.getElementById('creme'),
-      rosto = document.getElementById('rosto');
+      rosto = document.getElementById('rosto'),
+      lens = document.getElementById('lens');
   creme.addEventListener('click', cremeClick, false);
   rosto.addEventListener('touchstart', rostoTouchStart, false);
   rosto.addEventListener('touchend', rostoTouchEnd, false);
   rosto.addEventListener('touchmove', rostoTouchMove, false);
+  drawBackground();
 }
