@@ -1,9 +1,9 @@
 var isCremeOn = false,
     clearCount = {
-      'testa': 5,
-      'face_esquerda': 5,
-      'face_direita': 5,
-      'queixo': 5
+      'testa': 12,
+      'face_esquerda': 12,
+      'face_direita': 12,
+      'queixo': 12
     };
 
 function rostoOffset() {
@@ -47,15 +47,20 @@ function onOffCreme() {
 }
 
 function drawGorduras(ctx, qtde, left, top, lquota, tquota) {
-  ctx.fillStyle = 'red';
   for (var i = 0; i < qtde; i++) {
     var x = left + Math.floor(Math.random() * lquota);
     var y = top + Math.floor(Math.random() * tquota);
     ctx.beginPath();
-    ctx.arc(x, y, 6, 0, 360, false);
-    ctx.stroke();
-    ctx.beginPath();
+    ctx.fillStyle = '#CC3300';
     ctx.arc(x, y, 5, 0, 360, false);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = '#993300';
+    ctx.arc(x, y, 4, 0, 360, false);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.fillStyle = '#333000';
+    ctx.arc(x, y, 3, 0, 360, false);
     ctx.fill();
   }
 }
@@ -69,18 +74,18 @@ function drawLenteBackground() {
     drawGorduras(ctx, clearCount['testa'], 360, 115, 280, 120);
     drawGorduras(ctx, clearCount['face_esquerda'], 280, 340, 100, 140);
     drawGorduras(ctx, clearCount['face_direita'], 520, 360, 100, 140);
-    drawGorduras(ctx, clearCount['queixo'], 300, 550, 270, 60);
+    drawGorduras(ctx, clearCount['queixo'], 300, 560, 270, 50);
   }
 }
 
 function clearRosto(parte) {
   var partes = ['testa', 'face_esquerda', 'face_direita', 'queixo'];
   if (partes.indexOf(parte) > -1) {
-    if (clearCount[parte] <= 1) {
+    if (clearCount[parte] <= 4) {
       var imagem = document.getElementById(parte);
       imagem.src = 'img/sem_brilho/' + parte + '.jpg';
     }
-    clearCount[parte]--;
+    clearCount[parte] -= 4;
     drawLenteBackground();
   }
 }
